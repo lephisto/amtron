@@ -42,7 +42,7 @@ For convenient Usage in for Instance InfluxDB I've included a Nodered flow, that
 
 * Get merged device and Status Information in a flat JSON Oject: `GET /amtron/status?wbip=<WallboxIP>&devkey=<PIN1>`
 
-* Get Chargesessions enriched with Whitelist Name in a flat JSON Oject: `GET /amtron/transactions?wbip=<WallboxIP>&devkey=<PIN1>`
+* Get Chargesessions enriched with Whitelist Name in a flat JSON Oject: `GET /amtron/transactions?wbip=<WallboxIP>&devkey=<PIN1>&pin=<PIN2>"`
 
 
 ### Telegraf Config
