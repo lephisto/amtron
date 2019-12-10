@@ -28,4 +28,10 @@ In the document it is called **APP-Pin**.
 * [Get Charging Information](./docs/api/ChargeData/get.md): `GET /ChargeData`
 * [Set Charging Information](./docs/api/ChargeData/post.md): `POST /ChargeData`
 ---
+* [Get Statictics](./docs/api/Statistics/get.md): `GET /Statistics`
+---
+* [Get Transaction List](./docs/api/ChargeRecords/get.md): `GET /ChargeRecords`
+---
+* [Get Whitelist (aka. locally stored RFID Tags)](./docs/api/ChargeRecords/get.md): `GET /ChargeRecords`
+---
 * [Set EnergyManager parameters](./docs/api/HomeManager/post.md): `POST /HomeManager`
