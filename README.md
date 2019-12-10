@@ -35,3 +35,17 @@ In the document it is called **APP-Pin**.
 * [Get Whitelist (aka. locally stored RFID Tags)](./docs/api/ChargeRecords/get.md): `GET /ChargeRecords`
 ---
 * [Set EnergyManager parameters](./docs/api/HomeManager/post.md): `POST /HomeManager`
+
+### API Adapter for Nodered
+
+For convenient Usage in for Instance InfluxDB I've included a Nodered flow, that transforms the clumsy stuff from the Amtron API to something useable.
+
+### Telegraf Config
+
+Use InfluxDB + Telegraf to Pull the Data off your NodeRED API Adapter
+
+### Grafana Dashboard
+
+Import the Dashboard to Grafana to get a proper Visualisation of your Chargesessions. This looks like:
+
+![AmtronGrafana](https://github.com/lephisto/amtron/raw/master/screenshots/Amtron_Grafana_Dashboard.png)
