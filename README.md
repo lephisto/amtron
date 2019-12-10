@@ -5,7 +5,7 @@
 This repo contains a reverse-engineered documentation for the REST Api of a Mennekes Amtron 
 EV-Charger equipped with Networking.
 
-The information provided here was retrieved using the ChargeApp on Android and the Amtron Xtra 11 C2.
+The information provided here was validated against a Amtron Premium. However, the Status Section should work with Amtron Xtra (or other Wallboxes without Authorisation), too.
 
 **It may not be applicable to other Amtron chargers.**
 
