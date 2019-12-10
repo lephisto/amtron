@@ -40,6 +40,11 @@ In the document it is called **APP-Pin**.
 
 For convenient Usage in for Instance InfluxDB I've included a Nodered flow, that transforms the clumsy stuff from the Amtron API to something useable.
 
+* Get merged device and Status Information in a flat JSON Oject: `GET /amtron/status?wbip=<WallboxIP>&devkey=<PIN1>`
+
+* Get Chargesessions enriched with Whitelist Name in a flat JSON Oject: `GET /amtron/transactions?wbip=<WallboxIP>&devkey=<PIN1>`
+
+
 ### Telegraf Config
 
 Use Telegraf and InfluxDB to conveniently pull the Data off your NodeRED API Adapter and get it into a proper Timeseries Database. I have included a telegraf configuration.
