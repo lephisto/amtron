@@ -42,10 +42,10 @@ For convenient Usage in for Instance InfluxDB I've included a Nodered flow, that
 
 ### Telegraf Config
 
-Use InfluxDB + Telegraf to Pull the Data off your NodeRED API Adapter
+Use Telegraf and InfluxDB to conveniently pull the Data off your NodeRED API Adapter and get it into a proper Timeseries Database.
 
 ### Grafana Dashboard
 
-Import the Dashboard to Grafana to get a proper Visualisation of your Chargesessions. This looks like:
+Finally, import the Dashboard to Grafana to get a proper visualisation of your Chargesessions. This looks like:
 
 ![AmtronGrafana](https://github.com/lephisto/amtron/raw/master/screenshots/Amtron_Grafana_Dashboard.png)
