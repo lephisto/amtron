@@ -1,0 +1,481 @@
+[
+    {
+        "id": "d6484926.ea17e8",
+        "type": "tab",
+        "label": "Amtron",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "5e5ea446.c5f0cc",
+        "type": "inject",
+        "z": "d6484926.ea17e8",
+        "name": "",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 160,
+        "y": 60,
+        "wires": [
+            [
+                "3f24508b.1dace"
+            ]
+        ]
+    },
+    {
+        "id": "5eeb4b90.a3925c",
+        "type": "http request",
+        "z": "d6484926.ea17e8",
+        "name": "openDevInfo",
+        "method": "GET",
+        "ret": "obj",
+        "paytoqs": false,
+        "url": "",
+        "tls": "",
+        "proxy": "",
+        "authType": "",
+        "x": 650,
+        "y": 80,
+        "wires": [
+            [
+                "6c08705e.ad99f"
+            ]
+        ]
+    },
+    {
+        "id": "3f24508b.1dace",
+        "type": "function",
+        "z": "d6484926.ea17e8",
+        "name": "setHeadersDevInfo",
+        "func": "msg.headers = {};\nmsg.headers['Accept'] = 'application/json';\nmsg.url = 'http://' + msg.req.query.wbip + ':25000/MHCP/1.0/DevInfo?DevKey=' + msg.req.query.devkey;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 410,
+        "y": 80,
+        "wires": [
+            [
+                "5eeb4b90.a3925c"
+            ]
+        ]
+    },
+    {
+        "id": "6c08705e.ad99f",
+        "type": "change",
+        "z": "d6484926.ea17e8",
+        "name": "",
+        "rules": [
+            {
+                "t": "move",
+                "p": "payload",
+                "pt": "msg",
+                "to": "devinfo",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 180,
+        "y": 180,
+        "wires": [
+            [
+                "91fd3800.3f319"
+            ]
+        ]
+    },
+    {
+        "id": "2273c411.f3e07c",
+        "type": "http request",
+        "z": "d6484926.ea17e8",
+        "name": "openChargeData",
+        "method": "GET",
+        "ret": "obj",
+        "paytoqs": false,
+        "url": "",
+        "tls": "",
+        "proxy": "",
+        "authType": "",
+        "x": 710,
+        "y": 180,
+        "wires": [
+            [
+                "3c5ecb9b.ef5dd4"
+            ]
+        ]
+    },
+    {
+        "id": "91fd3800.3f319",
+        "type": "function",
+        "z": "d6484926.ea17e8",
+        "name": "setHeadersChargedata",
+        "func": "msg.headers = {};\nmsg.headers['Accept'] = 'application/json';\nmsg.url = 'http://' + msg.req.query.wbip + ':25000/MHCP/1.0/ChargeData?DevKey=' + msg.req.query.devkey;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 430,
+        "y": 180,
+        "wires": [
+            [
+                "2273c411.f3e07c"
+            ]
+        ]
+    },
+    {
+        "id": "3c5ecb9b.ef5dd4",
+        "type": "change",
+        "z": "d6484926.ea17e8",
+        "name": "",
+        "rules": [
+            {
+                "t": "move",
+                "p": "payload",
+                "pt": "msg",
+                "to": "chargedata",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 180,
+        "y": 260,
+        "wires": [
+            [
+                "bd34b0df.c95348"
+            ]
+        ]
+    },
+    {
+        "id": "bd34b0df.c95348",
+        "type": "function",
+        "z": "d6484926.ea17e8",
+        "name": "mergeNodes",
+        "func": "/*\n* Recursively merge properties of two objects \n*/\nfunction MergeRecursive(obj1, obj2) {\n\n  for (var p in obj2) {\n    try {\n      // Property in destination object set; update its value.\n      if ( obj2[p].constructor==Object ) {\n        obj1[p] = MergeRecursive(obj1[p], obj2[p]);\n\n      } else {\n        obj1[p] = obj2[p];\n\n      }\n\n    } catch(e) {\n      // Property in destination object not set; create it and set its value.\n      obj1[p] = obj2[p];\n\n    }\n  }\n\n  return obj1;\n}\n\nmsg.payload = MergeRecursive(msg.devinfo, msg.chargedata);\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 450,
+        "y": 260,
+        "wires": [
+            [
+                "73f5b018.a6e4f",
+                "e2c66dee.435938"
+            ]
+        ]
+    },
+    {
+        "id": "b0275b45.0bafd8",
+        "type": "http in",
+        "z": "d6484926.ea17e8",
+        "name": "amStatus",
+        "url": "/amtron/status",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 160,
+        "y": 100,
+        "wires": [
+            [
+                "3f24508b.1dace"
+            ]
+        ]
+    },
+    {
+        "id": "73f5b018.a6e4f",
+        "type": "http response",
+        "z": "d6484926.ea17e8",
+        "name": "reply",
+        "statusCode": "200",
+        "headers": {},
+        "x": 670,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "9ee4b7a6.2fa478",
+        "type": "function",
+        "z": "d6484926.ea17e8",
+        "name": "setHeadersWhitelist",
+        "func": "msg.headers = {};\nmsg.headers['Accept'] = 'application/json';\nmsg.url = 'http://' + msg.req.query.wbip + ':25000/MHCP/1.0/Whitelist?DevKey=' + msg.req.query.devkey + '&Pin=' + msg.req.query.pin + '&State=Open';\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 340,
+        "y": 380,
+        "wires": [
+            [
+                "fcc5679b.061b4"
+            ]
+        ]
+    },
+    {
+        "id": "fcc5679b.061b4",
+        "type": "http request",
+        "z": "d6484926.ea17e8",
+        "name": "OpenWhitelist",
+        "method": "GET",
+        "ret": "txt",
+        "paytoqs": false,
+        "url": "",
+        "tls": "",
+        "proxy": "",
+        "authType": "",
+        "x": 570,
+        "y": 380,
+        "wires": [
+            [
+                "730ed7a1.9686e8"
+            ]
+        ]
+    },
+    {
+        "id": "730ed7a1.9686e8",
+        "type": "function",
+        "z": "d6484926.ea17e8",
+        "name": "setHeadersWhitelist",
+        "func": "msg.headers = {};\nmsg.headers['Accept'] = 'application/json';\nmsg.url = 'http://' + msg.req.query.wbip + ':25000/MHCP/1.0/Whitelist?DevKey=' + msg.req.query.devkey + '&Pin=' + msg.req.query.pin + '&State=Read';\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 190,
+        "y": 460,
+        "wires": [
+            [
+                "51d2cf01.3bbd1"
+            ]
+        ]
+    },
+    {
+        "id": "51d2cf01.3bbd1",
+        "type": "http request",
+        "z": "d6484926.ea17e8",
+        "name": "OpenWhitelist",
+        "method": "GET",
+        "ret": "obj",
+        "paytoqs": false,
+        "url": "",
+        "tls": "",
+        "proxy": "",
+        "authType": "",
+        "x": 430,
+        "y": 460,
+        "wires": [
+            [
+                "f9d80f14.b94148"
+            ]
+        ]
+    },
+    {
+        "id": "f9d80f14.b94148",
+        "type": "function",
+        "z": "d6484926.ea17e8",
+        "name": "storeNamesToFlow",
+        "func": "for (i=0;i<msg.payload.Entries.length;i++) {\n    flow.set([msg.payload.Entries[i].Uid],[msg.payload.Entries[i].Name])\n}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 640,
+        "y": 460,
+        "wires": [
+            [
+                "eaff5ed7.d13008"
+            ]
+        ]
+    },
+    {
+        "id": "eaff5ed7.d13008",
+        "type": "function",
+        "z": "d6484926.ea17e8",
+        "name": "setHeadersChargerecords",
+        "func": "msg.headers = {};\nmsg.headers['Accept'] = 'application/json';\nmsg.url = 'http://' + msg.req.query.wbip + ':25000/MHCP/1.0/ChargeRecords?DevKey=' + msg.req.query.devkey + '&State=Open';\nnode.warn(msg.url);\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 890,
+        "y": 460,
+        "wires": [
+            [
+                "72478afd.f3afec"
+            ]
+        ]
+    },
+    {
+        "id": "72478afd.f3afec",
+        "type": "http request",
+        "z": "d6484926.ea17e8",
+        "name": "openChargeRecords",
+        "method": "GET",
+        "ret": "txt",
+        "paytoqs": false,
+        "url": "",
+        "tls": "",
+        "proxy": "",
+        "authType": "",
+        "x": 410,
+        "y": 520,
+        "wires": [
+            [
+                "ffb6dad0.7cc818"
+            ]
+        ]
+    },
+    {
+        "id": "ffb6dad0.7cc818",
+        "type": "function",
+        "z": "d6484926.ea17e8",
+        "name": "setHeadersReadChargerecords",
+        "func": "msg.headers = {};\nmsg.headers['Accept'] = 'application/json';\nmsg.url = 'http://' + msg.req.query.wbip + ':25000/MHCP/1.0/ChargeRecords?DevKey=' + msg.req.query.devkey + '&State=Read';\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 720,
+        "y": 520,
+        "wires": [
+            [
+                "377290e7.1c4538"
+            ]
+        ]
+    },
+    {
+        "id": "377290e7.1c4538",
+        "type": "http request",
+        "z": "d6484926.ea17e8",
+        "name": "readChargeRecords",
+        "method": "GET",
+        "ret": "obj",
+        "paytoqs": false,
+        "url": "",
+        "tls": "",
+        "proxy": "",
+        "authType": "",
+        "x": 170,
+        "y": 580,
+        "wires": [
+            [
+                "791182e8.9898fc"
+            ]
+        ]
+    },
+    {
+        "id": "791182e8.9898fc",
+        "type": "change",
+        "z": "d6484926.ea17e8",
+        "name": "",
+        "rules": [
+            {
+                "t": "move",
+                "p": "payload.Transactions",
+                "pt": "msg",
+                "to": "Transactions",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 450,
+        "y": 580,
+        "wires": [
+            [
+                "e43f443e.d4443"
+            ]
+        ]
+    },
+    {
+        "id": "e43f443e.d4443",
+        "type": "function",
+        "z": "d6484926.ea17e8",
+        "name": "stashTransactionsToHTTPResponse",
+        "func": "for (i=0;i<msg.Transactions.length;i++) {\n    var Name = flow.get(msg.Transactions[i].Uid);\n    msg.Transactions[i].Name = Name;\n}\nmsg.payload=msg.Transactions;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 800,
+        "y": 580,
+        "wires": [
+            [
+                "2ea7417e.8e696e",
+                "d34386d9.366f48"
+            ]
+        ]
+    },
+    {
+        "id": "2ea7417e.8e696e",
+        "type": "http response",
+        "z": "d6484926.ea17e8",
+        "name": "respTransactions",
+        "statusCode": "200",
+        "headers": {},
+        "x": 1090,
+        "y": 580,
+        "wires": []
+    },
+    {
+        "id": "792ca843.3a5af8",
+        "type": "http in",
+        "z": "d6484926.ea17e8",
+        "name": "amTransactions",
+        "url": "/amtron/transactions",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 110,
+        "y": 380,
+        "wires": [
+            [
+                "9ee4b7a6.2fa478"
+            ]
+        ]
+    },
+    {
+        "id": "e2c66dee.435938",
+        "type": "debug",
+        "z": "d6484926.ea17e8",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "x": 670,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "d34386d9.366f48",
+        "type": "function",
+        "z": "d6484926.ea17e8",
+        "name": "setHeadersCloseChargerecords",
+        "func": "msg.headers = {};\nmsg.headers['Accept'] = 'application/json';\nmsg.url = 'http://' + msg.req.query.wbip + ':25000/MHCP/1.0/ChargeRecords?DevKey=' + msg.req.query.devkey + '&State=Close';\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 480,
+        "y": 660,
+        "wires": [
+            [
+                "c13649ab.28b0c"
+            ]
+        ]
+    },
+    {
+        "id": "c13649ab.28b0c",
+        "type": "http request",
+        "z": "d6484926.ea17e8",
+        "name": "closeChargeRecords",
+        "method": "GET",
+        "ret": "obj",
+        "paytoqs": false,
+        "url": "",
+        "tls": "",
+        "proxy": "",
+        "authType": "",
+        "x": 770,
+        "y": 660,
+        "wires": [
+            []
+        ]
+    }
+]
