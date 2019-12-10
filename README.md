@@ -32,7 +32,7 @@ In the document it is called **APP-Pin**.
 ---
 * [Get Transaction List](./docs/api/ChargeRecords/get.md): `GET /ChargeRecords`
 ---
-* [Get Whitelist (aka. locally stored RFID Tags)](./docs/api/ChargeRecords/get.md): `GET /ChargeRecords`
+* [Get Whitelist (aka. locally stored RFID Tags)](./docs/api/Whitelist/get.md): `GET /Whitelist`
 ---
 * [Set EnergyManager parameters](./docs/api/HomeManager/post.md): `POST /HomeManager`
 
