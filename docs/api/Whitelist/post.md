@@ -1,4 +1,4 @@
-**Get Whitelist**
+**Set Whitelist**
 ----
 
 Saves new entries to Whitelist (aKa. _Authorize new RFID Tags_).
@@ -17,7 +17,6 @@ Saves new entries to Whitelist (aKa. _Authorize new RFID Tags_).
  
    `devKey=[integer]`
    `pin=[integer] /* PIN2 */`              
-   `State=[Read,Open,Alive,Close]`
 * **Headers**
   **Required:**
   `Accept: 'application/json'`
