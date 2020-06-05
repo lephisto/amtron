@@ -17,7 +17,7 @@ Deletes an entry from the Whitelist (aKa. unauthorize RFID Tags).
  
    `devKey=[integer]`
    `pin=[integer] /* PIN2 */`
-   `Uid=[integer] /* Uid to delete`
+   `Uid=[integer] /* Uid to delete */`
 * **Headers**
   **Required:**
   `Accept: 'application/json'`
