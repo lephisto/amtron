@@ -33,6 +33,10 @@ In the document it is called **APP-Pin**.
 * [Get Transaction List](./docs/api/ChargeRecords/get.md): `GET /ChargeRecords`
 ---
 * [Get Whitelist (aka. locally stored RFID Tags)](./docs/api/Whitelist/get.md): `GET /Whitelist`
+* [Set Whitelist (aka. authorize new RFID Tag)](./docs/api/Whitelist/post.md):`POST /Whitelist` 
+* [Delete from Whitelist (aka. uznauthorize RFID Tag)](./docs/api/Whitelist/delete.md):`DELETE /Whitelist` 
+
+
 ---
 * [Set EnergyManager parameters](./docs/api/HomeManager/post.md): `POST /HomeManager`
 
