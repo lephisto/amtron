@@ -5,8 +5,8 @@ Saves new entries to Whitelist (aKa. _Authorize new RFID Tags_).
 
 * **URL**
 
-  /Whitelist?DevKey=:devKey&Pin=:pin&State=:state
-
+  /Whitelist?DevKey=:devKey&Pin=:pin
+  
 * **Method:**
   
   `POST`
