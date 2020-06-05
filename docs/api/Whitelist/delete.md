@@ -5,7 +5,7 @@ Deletes an entry from the Whitelist (aKa. unauthorize RFID Tags).
 
 * **URL**
 
-  /Whitelist?DevKey=:devKey&Pin=:pin&Uid=:state
+  /Whitelist?DevKey=:devKey&Pin=:pin&Uid=:Uid
 
 * **Method:**
   
