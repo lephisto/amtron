@@ -1,22 +1,23 @@
-**Set Whitelist**
+**Delete Whitelist**
 ----
 
-Saves new entries to Whitelist (aKa. _Authorize new RFID Tags_).
+Deletes an entry from the Whitelist (aKa. unauthorize RFID Tags).
 
 * **URL**
 
-  /Whitelist?DevKey=:devKey&Pin=:pin
-  
+  /Whitelist?DevKey=:devKey&Pin=:pin&Uid=:Uid
+
 * **Method:**
   
-  `POST`
+  `DELETE`
   
 *  **URL Params**
 
    **Required:**
  
    `devKey=[integer]`
-   `pin=[integer] /* PIN2 */`              
+   `pin=[integer] /* PIN2 */`
+   `Uid=[integer] /* Uid to delete */`
 * **Headers**
   **Required:**
   `Accept: 'application/json'`
@@ -34,5 +35,4 @@ Saves new entries to Whitelist (aKa. _Authorize new RFID Tags_).
 * **Notes:**
 
     * Set headers properly, otherwise the Webserver will `500`
-
 
